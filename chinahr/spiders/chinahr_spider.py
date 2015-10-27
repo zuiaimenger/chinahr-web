@@ -16,7 +16,8 @@ class ChinahrSpider(scrapy.Spider):
     name = 'chinahr'
     allowed_domains = ['chinahr.com']
     urls = []
-    BASE_DIR = os.path.abspath('.')
+    #BASE_DIR = os.path.abspath('.')
+    BASE_DIR = '/data/chinahr-web/'
     file_path = os.path.join(BASE_DIR, 'chinahr/spiders/chinahr_start.txt')
     for url in open(file_path, 'r'):
         urls.append(url.strip())
@@ -26,14 +27,14 @@ class ChinahrSpider(scrapy.Spider):
     def parse(self, response):
         maxPageNumStr = ''.join(response.xpath('//a[@class="paging_jz"][last()]/span/text()').extract())
         onePage = ''.join(response.xpath('//a[@class="paging_jzd"]/span/text()').extract()).strip()
-        if maxPageNumStr.isdigit():
+        if not maxPageNumStr and maxPageNumStr.isdigit():
             url_sec = response.url.split('/')
             url_head = '/'.join(url_sec[0:-1])
             urls_tail = [str(i*20) for i in range(int(maxPageNumStr))]
             urls = [url_head+'/p'+tail for tail in urls_tail]
             for url in urls:
                 yield scrapy.Request(url, callback=self.parse_urls)
-        elif int(onePage) == 1:
+        elif not onePage and int(onePage) == 1:
             yield scrapy.Request(response.url, callback=self.parse_urls)
         else:
             pass
