@@ -120,7 +120,7 @@ class MySQLPipeline(object):
     def _job_insert(self, tx, item):
         # create record if doesn't exist.
         # all this block run on it's own thread
-        tx.execute("select * from job where url = %s", (item['url'],))
+        #tx.execute("select * from job where url = %s", (item['url'],))
         result = tx.fetchone()
         if result:
             log.msg("Item already stored in db: %s" % item['url'], level=log.DEBUG)
@@ -149,7 +149,7 @@ class MySQLPipeline(object):
                    "job_reqLan) " \
                    "values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
 
-            tx.execute(sqli, (datetime.datetime.now(),
+        tx.execute(sqli, (datetime.datetime.now(),
                               itemdict.setdefault('job_category', None),
                               itemdict.setdefault('url', None),
                               itemdict.setdefault('job_name', None),
@@ -169,14 +169,14 @@ class MySQLPipeline(object):
                               itemdict.setdefault('job_desc_req', None),
                               itemdict.setdefault('job_reqSex', None),
                               itemdict.setdefault('job_reqAge', None),
-                              itemdict.setdefault('Job_reqLan', None),)
+                              itemdict.setdefault('job_reqLan', None),)
                        )
-            log.msg("Item stored in db: %s" % item['url'], level=log.DEBUG)
+        log.msg("Item stored in db: %s" % item['url'], level=log.DEBUG)
     
     def _com_insert(self, tx, item):
         # create record if doesn't exist.
         # all this block run on it's own thread
-        tx.execute("select * from company where url = %s", (item['url'],))
+        #tx.execute("select * from company where url = %s", (item['url'],))
         result = tx.fetchone()
         if result:
             log.msg("Item already stored in db: %s" % item['url'], level=log.DEBUG)
