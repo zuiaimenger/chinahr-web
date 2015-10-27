@@ -67,7 +67,7 @@ class ChinahrSpider(scrapy.Spider):
         loader.add_xpath('job_nature', '//div[@class="job_desc"]/p/text()', TakeFirstL(), re=u'(?<=工作性质：)[\s\S]*')
         loader.add_xpath('job_desc_resp', '//p[@class="detial_jobSec"]', RemoveTagsL(), TakeFirstL(), re=u'(?<=岗位职责[:，：])[\s\S]*')        
         loader.add_xpath('job_desc_req', '//p[@class="detial_jobSec"]', RemoveTagsL(), TakeFirstL(), re=u'(?<=任职条件[:，：])[\s\S]*')        
-        loader.add_xpath('job_desc_detail', '//p[@class="detial_jobSec"]', RemoveTagsL(), TakeFirstL(), re=u'(?<=其他福利[:，：])[\s\S]*')
+        loader.add_xpath('job_detail', '//p[@class="detial_jobSec"]', RemoveTagsL(), TakeFirstL(), re=u'(?<=其他福利[:，：])[\s\S]*')
 
         return loader.load_item()
 
