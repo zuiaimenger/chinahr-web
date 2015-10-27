@@ -31,7 +31,7 @@ NEWSPIDER_MODULE = 'chinahr.spiders'
 #CONCURRENT_REQUESTS_PER_IP=16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED=False
+COOKIES_ENABLED=False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED=False
@@ -50,9 +50,11 @@ NEWSPIDER_MODULE = 'chinahr.spiders'
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware' : None,
+    'chinahr.spiders.rotate_useragent.RotateUserAgentMiddleware' :400
 #    'chinahr.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -87,16 +89,29 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-#LOG_LEVEL = 'INFO'
+#sLOG_LEVEL = 'INFO'
 LOG_FILE = 'log.txt'
 
 MYSQL_URI = {
-    'host': '127.0.0.1',
+    'host': 'mgt',
     'port': 3306,
-    'db': 'chinahr',
+    'db': 'jobs',
     'user': 'root',
-    'passwd': 'wybigdata',
+    'passwd': 'Bitfeng123',
     'charset': 'utf8',
     }
+
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+SCHEDULER_PERSIST = True
+#SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
+SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderQueue"
+#SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderStack"
+
+#SCHEDULER_IDLE_BEFORE_CLOSE = 10
+
+REDIS_HOST = 'mgt'
+REDIS_PORT = 6379
+
+
 
 
