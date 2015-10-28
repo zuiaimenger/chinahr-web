@@ -87,9 +87,9 @@ ITEM_PIPELINES = {
 #HTTPCACHE_EXPIRATION_SECS=0
 #HTTPCACHE_DIR='httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
-#HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+#HTTPCACHE_STORAGE='scrapy.extensionse.httpcache.FilesystemCacheStorage'
 
-#sLOG_LEVEL = 'INFO'
+LOG_LEVEL = 'INFO'
 LOG_FILE = 'log.txt'
 
 MYSQL_URI = {

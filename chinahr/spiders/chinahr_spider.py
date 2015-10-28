@@ -27,15 +27,17 @@ class ChinahrSpider(scrapy.Spider):
     def parse(self, response):
         maxPageNumStr = ''.join(response.xpath('//a[@class="paging_jz"][last()]/span/text()').extract())
         onePage = ''.join(response.xpath('//a[@class="paging_jzd"]/span/text()').extract()).strip()
-        if not maxPageNumStr and maxPageNumStr.isdigit():
-            url_sec = response.url.split('/')
-            url_head = '/'.join(url_sec[0:-1])
-            urls_tail = [str(i*20) for i in range(int(maxPageNumStr))]
-            urls = [url_head+'/p'+tail for tail in urls_tail]
-            for url in urls:
-                yield scrapy.Request(url, callback=self.parse_urls)
-        elif not onePage and int(onePage) == 1:
-            yield scrapy.Request(response.url, callback=self.parse_urls)
+        if not maxPageNumStr:
+            if maxPageNumStr.isdigit():
+                url_sec = response.url.split('/')
+                url_head = '/'.join(url_sec[0:-1])
+                urls_tail = [str(i*20) for i in range(int(maxPageNumStr))]
+                urls = [url_head+'/p'+tail for tail in urls_tail]
+                for url in urls:
+                    yield scrapy.Request(url, callback=self.parse_urls)
+        elif not onePage:
+            if int(onePage) == 1:
+                yield scrapy.Request(response.url, callback=self.parse_urls)
         else:
             pass
 

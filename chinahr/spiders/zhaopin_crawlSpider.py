@@ -17,7 +17,8 @@ class ZhaopinCrawlSpider(scrapy.Spider):
     allowed_domain = ['zhaopin.com']
 
     urls = []
-    BASE_DIR = os.path.abspath('.')
+    #BASE_DIR = os.path.abspath('.')
+    BASE_DIR = '/data/chinahr-web/'
     file_path = os.path.join(BASE_DIR, 'chinahr/spiders/zhaopin_start.txt')
     for url in open(file_path, 'r'):
         urls.append(url.strip())
